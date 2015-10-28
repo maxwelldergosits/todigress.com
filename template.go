@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+  "strings"
 )
 
 func Render(directory string, w http.ResponseWriter, r *http.Request) {
@@ -40,14 +41,18 @@ func Render(directory string, w http.ResponseWriter, r *http.Request) {
 	}
 	file = fmt.Sprintf("%s%s", filepath.Base(uri), ".template")
 
-	fmt.Fprintln(w, RenderFile(content_path, file))
+	fmt.Fprintln(w, RenderMatch(r,content_path, file))
 
 	io.Copy(w, footer)
 
 }
 
-func RenderFile(dir string, filename string) string {
+func RenderMatch(r *http.Request, dir string, filename string) string {
 
+  if strings.HasPrefix(filename,"key:") {
+	  var uri string = r.URL.RequestURI()
+    return uri
+  }
 	content_bytes, err := ioutil.ReadFile(filepath.Join(dir, filename))
 	content := string(content_bytes)
 
@@ -59,7 +64,7 @@ func RenderFile(dir string, filename string) string {
 
 	replaceFunc := func(match string) string {
 		match = match[2 : len(match)-2]
-		return RenderFile(dir, match)
+		return RenderMatch(r,dir, match)
 	}
 
 	return re.ReplaceAllStringFunc(content, replaceFunc)
