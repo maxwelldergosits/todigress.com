@@ -9,7 +9,7 @@ func (c * Conf) Directory() string {
 }
 
 func GetDefaultConf() * Conf {
-  return ReadConf(".todigress.conf")
+  return ReadConf("/home/git/deployments/todigress-server/.todigress.conf")
 }
 
 func ReadConf(filename string) * Conf {
