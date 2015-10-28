@@ -4,13 +4,19 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
-	//"fmt"
+  "os"
 )
 
 func main() {
-	directory := "./templates"
-	// Simple static webserver:
+  var directory string
 
+  if len(os.Args) < 2 {
+	  directory = GetDefaultConf().Directory()
+  } else {
+	  directory = os.Args[1]
+  }
+
+	// Simple static webserver:
 	static_path := filepath.Join(directory, "static/")
 	mux := http.NewServeMux()
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(static_path))))
