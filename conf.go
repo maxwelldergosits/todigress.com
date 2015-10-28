@@ -7,7 +7,7 @@ type Conf map[string]string
 func (c * Conf) Directory() string {
   return (*c)["directory"]
 }
-
+//test
 func GetDefaultConf() * Conf {
   return ReadConf("/home/git/deployments/todigress-server/.todigress.conf")
 }
