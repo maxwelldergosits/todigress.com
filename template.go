@@ -36,9 +36,7 @@ func Render(directory string, w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, header)
 	var file string
 	var uri string = r.URL.RequestURI()
-	if uri == "/" {
-		uri = "/index"
-	}
+	uri = "/index"
 	file = fmt.Sprintf("%s%s", filepath.Base(uri), ".template")
 
 	fmt.Fprintln(w, RenderMatch(r,content_path, file))
