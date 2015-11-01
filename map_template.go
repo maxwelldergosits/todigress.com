@@ -1,5 +1,4 @@
-package templates
-import "todigress-server/utils"
+package main
 import "strings"
 import "path/filepath"
 import "log"

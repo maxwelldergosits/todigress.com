@@ -1,4 +1,4 @@
-package templates
+package main
 import (
   "strings"
   "path/filepath"
