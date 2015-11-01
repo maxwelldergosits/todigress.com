@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"path/filepath"
   "os"
-  "todigress-server/templates"
 )
 
 func main() {
@@ -23,7 +22,7 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(static_path))))
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		templates.Render(directory, w, r)
+		Render(directory, w, r)
 	})
 
 	log.Fatal(http.ListenAndServe(":8080", mux))

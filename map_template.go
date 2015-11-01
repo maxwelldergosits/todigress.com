@@ -13,7 +13,7 @@ func RenderMap(r * RenderContext, match string, render func(*RenderContext, stri
   }
   file := tokens[0]
   key := tokens[1]
-  values := utils.ReadMap(filepath.Join(r.Directory,file))
+  values := ReadMap(filepath.Join(r.Directory,file))
   log.Println("key value=:",key,values[key])
   return values[key]
 }
