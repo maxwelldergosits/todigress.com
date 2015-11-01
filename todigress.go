@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"path/filepath"
   "os"
-  "fmt"
+  "todigress-server/templates"
 )
 
 func main() {
@@ -23,20 +23,7 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(static_path))))
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		Render(directory, w, r)
-	})
-
-  locked := false
-	mux.HandleFunc("/locked", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w,locked)
-	})
-
-	mux.HandleFunc("/lock", func(w http.ResponseWriter, r *http.Request) {
-		locked = true
-	})
-
-	mux.HandleFunc("/unlock", func(w http.ResponseWriter, r *http.Request) {
-		locked = false
+		templates.Render(directory, w, r)
 	})
 
 	log.Fatal(http.ListenAndServe(":8080", mux))
