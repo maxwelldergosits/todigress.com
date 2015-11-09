@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+  "io"
 	"net/http"
 	"path/filepath"
 	"regexp"
@@ -71,7 +72,7 @@ func DefaultFileFinder(directory, regex string)[]string {
     return names
 }
 
-func Render(directory string, w http.ResponseWriter, r *http.Request) {
+func Render(directory string, w io.Writer, r *http.Request) {
 
 	content_path := filepath.Join(directory, "content/")
 
